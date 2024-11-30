@@ -119,18 +119,18 @@ function loadImage(src){
         resizeCanvas();
     };
 }
-function render() {
-    const currentTime = performance.now();
+function render(){
+    const currentTime=performance.now();
     gl.uniform1f(uniforms.u_time, currentTime);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     requestAnimationFrame(render);
 }
-function resizeCanvas() {
-    const imgRatio = image.naturalWidth / image.naturalHeight;
-    canvasEl.width = window.innerWidth * devicePixelRatio;
-    canvasEl.height = window.innerHeight * devicePixelRatio;
+function resizeCanvas(){
+    const imgRatio=image.naturalWidth/image.naturalHeight;
+    canvasEl.width=window.innerWidth*devicePixelRatio;
+    canvasEl.height=window.innerHeight*devicePixelRatio;
     gl.viewport(0, 0, canvasEl.width, canvasEl.height);
-    gl.uniform1f(uniforms.u_ratio, canvasEl.width / canvasEl.height);
+    gl.uniform1f(uniforms.u_ratio, canvasEl.width/canvasEl.height);
     gl.uniform1f(uniforms.u_img_ratio, imgRatio);
 }
 function setupEvents() {
