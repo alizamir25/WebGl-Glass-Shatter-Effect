@@ -34,13 +34,13 @@ createControls();
 render();
 window.addEventListener("resize", resizeCanvas);
     // ---------------
-   let autoRunFlag = true;
+   let autoRunFlag=true;
     function autoRun() {
-        params.clickRandomizer -= .03;
-        pointer.x += 70 * (autoRunFlag ? 1 : -1);
-        pointer.y += 40;
+        params.clickRandomizer-=.03;
+        pointer.x+=70*(autoRunFlag?1:-1);
+        pointer.y+=40;
         updateUniforms();
-      autoRunFlag = !autoRunFlag;
+      autoRunFlag=!autoRunFlag;
     }
     setTimeout(autoRun, 500);
     setTimeout(autoRun, 1000);
