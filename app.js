@@ -45,42 +45,42 @@ window.addEventListener("resize", resizeCanvas);
     setTimeout(autoRun, 500);
     setTimeout(autoRun, 1000);
     // ---------------
-function initShader() {
-    const vsSource = document.getElementById("vertShader").innerHTML;
-    const fsSource = document.getElementById("fragShader").innerHTML;
-    const gl = canvasEl.getContext("webgl");
+function initShader(){
+    const vsSource=document.getElementById("vertShader").innerHTML;
+    const fsSource=document.getElementById("fragShader").innerHTML;
+    const gl=canvasEl.getContext("webgl");
     function createShader(gl, sourceCode, type) {
-        const shader = gl.createShader(type);
+        const shader=gl.createShader(type);
         gl.shaderSource(shader, sourceCode);
         gl.compileShader(shader);
-        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-            console.error("An error occurred compiling the shaders: " + gl.getShaderInfoLog(shader));
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)){
+            console.error("An error occurred compiling the shaders: "+gl.getShaderInfoLog(shader));
             gl.deleteShader(shader);
             return null;
         }
         return shader;
     }
-    const vertexShader = createShader(gl, vsSource, gl.VERTEX_SHADER);
-    const fragmentShader = createShader(gl, fsSource, gl.FRAGMENT_SHADER);
+    const vertexShader=createShader(gl, vsSource, gl.VERTEX_SHADER);
+    const fragmentShader=createShader(gl, fsSource, gl.FRAGMENT_SHADER);
     function createShaderProgram(gl, vertexShader, fragmentShader) {
-        const program = gl.createProgram();
+        const program=gl.createProgram();
         gl.attachShader(program, vertexShader);
         gl.attachShader(program, fragmentShader);
         gl.linkProgram(program);
         if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-            console.error("Unable to initialize the shader program: " + gl.getProgramInfoLog(program));
+            console.error("Unable to initialize the shader program: "+gl.getProgramInfoLog(program));
             return null;
         }
         return program;
     }
-    const shaderProgram = createShaderProgram(gl, vertexShader, fragmentShader);
-    uniforms = getUniforms(shaderProgram);
+    const shaderProgram=createShaderProgram(gl, vertexShader, fragmentShader);
+    uniforms=getUniforms(shaderProgram);
     function getUniforms(program) {
-        let uniforms = [];
-        let uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
-        for (let i = 0; i < uniformCount; i++) {
-            let uniformName = gl.getActiveUniform(program, i).name;
-            uniforms[uniformName] = gl.getUniformLocation(program, uniformName);
+        let uniforms=[];
+        let uniformCount=gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
+        for (let i=0;i<uniformCount;i++){
+            let uniformName=gl.getActiveUniform(program, i).name;
+            uniforms[uniformName]=gl.getUniformLocation(program, uniformName);
         }
         return uniforms;
     }
