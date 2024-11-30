@@ -134,31 +134,30 @@ function resizeCanvas(){
     gl.uniform1f(uniforms.u_img_ratio, imgRatio);
 }
 function setupEvents() {
-    canvasEl.addEventListener("click", e => {
-        pointer.x = e.pageX;
-        pointer.y = e.pageY;
+    canvasEl.addEventListener("click", e=>{
+        pointer.x=e.pageX;
+        pointer.y=e.pageY;
         params.clickRandomizer = Math.random();
         updateUniforms();
     });
-    document.addEventListener("keydown", e => {
-        if (event.code === "Space") {
-            params.effectOn = !params.effectOn;
-            if (effectOffControl) {
+    document.addEventListener("keydown",e=>{
+        if (event.code==="Space") {
+            params.effectOn=!params.effectOn;
+            if (effectOffControl){
                 effectOffControl.setValue(params.effectOn)
             }
         }
     });
 }
-function createControls() {
-    const gui = new GUI();
+function createControls(){
+    const gui=new GUI();
    gui.close();
     gui
         .add(params, "loadMyImage")
         .name("load image")
-
-    const paramsFolder = gui.addFolder("shader params");
+    const paramsFolder=gui.addFolder("shader params");
     // paramsFolder.close();
-    effectOffControl = paramsFolder
+    effectOffControl=paramsFolder
         .add(params, "effectOn")
         .onChange(updateUniforms)
     paramsFolder
