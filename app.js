@@ -3,7 +3,6 @@ import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.18.2/+esm"
 const canvasEl = document.querySelector("canvas");
 const imgInput = document.querySelector("#image-selector-input");
 const devicePixelRatio = Math.min(window.devicePixelRatio, 2);
-
 const params = {
     clickRandomizer: .332,
     distance: .015,
@@ -13,12 +12,10 @@ const params = {
         imgInput.click();
     },
 };
-
 const pointer = {
     x: .55 * window.innerWidth,
     y: .5 * window.innerHeight,
 };
-
 imgInput.onchange = () => {
     const [file] = imgInput.files;
     if (file) {
@@ -29,8 +26,6 @@ imgInput.onchange = () => {
         reader.readAsDataURL(file);
     }
 };
-
-
 let image, uniforms, effectOffControl;
 const gl = initShader();
 updateUniforms();
@@ -39,10 +34,7 @@ setupEvents();
 createControls();
 render();
 window.addEventListener("resize", resizeCanvas);
-
-
     // ---------------
-    // codepen preview
    let autoRunFlag = true;
     function autoRun() {
         params.clickRandomizer -= .03;
@@ -54,48 +46,36 @@ window.addEventListener("resize", resizeCanvas);
     setTimeout(autoRun, 500);
     setTimeout(autoRun, 1000);
     // ---------------
-
-
 function initShader() {
     const vsSource = document.getElementById("vertShader").innerHTML;
     const fsSource = document.getElementById("fragShader").innerHTML;
-
     const gl = canvasEl.getContext("webgl");
-
     function createShader(gl, sourceCode, type) {
         const shader = gl.createShader(type);
         gl.shaderSource(shader, sourceCode);
         gl.compileShader(shader);
-
         if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
             console.error("An error occurred compiling the shaders: " + gl.getShaderInfoLog(shader));
             gl.deleteShader(shader);
             return null;
         }
-
         return shader;
     }
-
     const vertexShader = createShader(gl, vsSource, gl.VERTEX_SHADER);
     const fragmentShader = createShader(gl, fsSource, gl.FRAGMENT_SHADER);
-
     function createShaderProgram(gl, vertexShader, fragmentShader) {
         const program = gl.createProgram();
         gl.attachShader(program, vertexShader);
         gl.attachShader(program, fragmentShader);
         gl.linkProgram(program);
-
         if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
             console.error("Unable to initialize the shader program: " + gl.getProgramInfoLog(program));
             return null;
         }
-
         return program;
     }
-
     const shaderProgram = createShaderProgram(gl, vertexShader, fragmentShader);
     uniforms = getUniforms(shaderProgram);
-
     function getUniforms(program) {
         let uniforms = [];
         let uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
@@ -105,24 +85,17 @@ function initShader() {
         }
         return uniforms;
     }
-
     const vertices = new Float32Array([-1., -1., 1., -1., -1., 1., 1., 1.]);
-
     const vertexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
-
     gl.useProgram(shaderProgram);
-
     const positionLocation = gl.getAttribLocation(shaderProgram, "a_position");
     gl.enableVertexAttribArray(positionLocation);
-
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
     gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
-
     return gl;
 }
-
 function updateUniforms() {
     gl.uniform1f(uniforms.u_click_randomizer, params.clickRandomizer);
     gl.uniform1f(uniforms.u_rotation, params.rotation);
@@ -131,7 +104,6 @@ function updateUniforms() {
     gl.uniform1f(uniforms.u_edge_thickness, params.edgeThickness);
     gl.uniform2f(uniforms.u_pointer_position, pointer.x / window.innerWidth, pointer.y / window.innerHeight);
 }
-
 function loadImage(src) {
     image = new Image();
     image.crossOrigin = "anonymous";
@@ -148,14 +120,12 @@ function loadImage(src) {
         resizeCanvas();
     };
 }
-
 function render() {
     const currentTime = performance.now();
     gl.uniform1f(uniforms.u_time, currentTime);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     requestAnimationFrame(render);
 }
-
 function resizeCanvas() {
     const imgRatio = image.naturalWidth / image.naturalHeight;
     canvasEl.width = window.innerWidth * devicePixelRatio;
@@ -164,7 +134,6 @@ function resizeCanvas() {
     gl.uniform1f(uniforms.u_ratio, canvasEl.width / canvasEl.height);
     gl.uniform1f(uniforms.u_img_ratio, imgRatio);
 }
-
 function setupEvents() {
     canvasEl.addEventListener("click", e => {
         pointer.x = e.pageX;
@@ -172,7 +141,6 @@ function setupEvents() {
         params.clickRandomizer = Math.random();
         updateUniforms();
     });
-
     document.addEventListener("keydown", e => {
         if (event.code === "Space") {
             params.effectOn = !params.effectOn;
@@ -182,20 +150,15 @@ function setupEvents() {
         }
     });
 }
-
-
 function createControls() {
     const gui = new GUI();
    gui.close();
-  
     gui
         .add(params, "loadMyImage")
         .name("load image")
 
     const paramsFolder = gui.addFolder("shader params");
     // paramsFolder.close();
-
-
     effectOffControl = paramsFolder
         .add(params, "effectOn")
         .onChange(updateUniforms)
