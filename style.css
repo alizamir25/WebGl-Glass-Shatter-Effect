@@ -1,14 +1,14 @@
-body, html {
+body, html{
     margin: 0;
     padding: 0;
 }
-canvas {
+canvas{
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
 }
-.tip {
+.tip{
     position: fixed;
     top: 90%;
     left: 50%;
@@ -19,7 +19,7 @@ canvas {
     background-color: cornsilk;
     color: red;
 }
-.lil-gui {
+.lil-gui{
     --width: 400px;
     --widget-height: 20px;
     font-size: 15px;
