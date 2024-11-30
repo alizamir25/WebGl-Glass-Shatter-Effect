@@ -9,14 +9,10 @@
 </head>
 <body>
     <input id="image-selector-input" style="visibility:hidden;" type="file">
-
 <canvas></canvas>
-
 <div class="tip">
     click to break, space to toggle
 </div>
-
-
 <script type="x-shader/x-fragment" id="vertShader">
     precision mediump float;
 
@@ -28,7 +24,6 @@
         gl_Position = vec4(a_position, 0.0, 1.0);
     }
 </script>
-
 <script type="x-shader/x-fragment" id="fragShader">
     precision highp float;
     precision highp sampler2D;
