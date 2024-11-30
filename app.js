@@ -84,12 +84,12 @@ function initShader(){
         }
         return uniforms;
     }
-    const vertices = new Float32Array([-1., -1., 1., -1., -1., 1., 1., 1.]);
-    const vertexBuffer = gl.createBuffer();
+    const vertices=new Float32Array([-1., -1., 1., -1., -1., 1., 1., 1.]);
+    const vertexBuffer=gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
     gl.useProgram(shaderProgram);
-    const positionLocation = gl.getAttribLocation(shaderProgram, "a_position");
+    const positionLocation=gl.getAttribLocation(shaderProgram, "a_position");
     gl.enableVertexAttribArray(positionLocation);
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
     gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
