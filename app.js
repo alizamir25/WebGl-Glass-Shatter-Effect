@@ -95,20 +95,20 @@ function initShader(){
     gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
     return gl;
 }
-function updateUniforms() {
+function updateUniforms(){
     gl.uniform1f(uniforms.u_click_randomizer, params.clickRandomizer);
     gl.uniform1f(uniforms.u_rotation, params.rotation);
     gl.uniform1f(uniforms.u_effect, params.distance);
-    gl.uniform1f(uniforms.u_effect_active, params.effectOn ? 1 : 0);
+    gl.uniform1f(uniforms.u_effect_active, params.effectOn?1:0);
     gl.uniform1f(uniforms.u_edge_thickness, params.edgeThickness);
-    gl.uniform2f(uniforms.u_pointer_position, pointer.x / window.innerWidth, pointer.y / window.innerHeight);
+    gl.uniform2f(uniforms.u_pointer_position, pointer.x/window.innerWidth, pointer.y/window.innerHeight);
 }
-function loadImage(src) {
-    image = new Image();
-    image.crossOrigin = "anonymous";
-    image.src = src;
-    image.onload = () => {
-        const imageTexture = gl.createTexture();
+function loadImage(src){
+    image=new Image();
+    image.crossOrigin="anonymous";
+    image.src=src;
+    image.onload=()=>{
+        const imageTexture=gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, imageTexture);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
