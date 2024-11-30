@@ -2,14 +2,12 @@ body, html {
     margin: 0;
     padding: 0;
 }
-
 canvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
 }
-
 .tip {
     position: fixed;
     top: 90%;
@@ -21,7 +19,6 @@ canvas {
     background-color: cornsilk;
     color: red;
 }
-
 .lil-gui {
     --width: 400px;
     --widget-height: 20px;
