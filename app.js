@@ -1,33 +1,32 @@
 import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.18.2/+esm"
-
-const canvasEl = document.querySelector("canvas");
-const imgInput = document.querySelector("#image-selector-input");
-const devicePixelRatio = Math.min(window.devicePixelRatio, 2);
-const params = {
+const canvasEl=document.querySelector("canvas");
+const imgInput=document.querySelector("#image-selector-input");
+const devicePixelRatio=Math.min(window.devicePixelRatio, 2);
+const params={
     clickRandomizer: .332,
     distance: .015,
     effectOn: true,
     edgeThickness: .006,
-    loadMyImage: () => {
+    loadMyImage:()=>{
         imgInput.click();
     },
 };
-const pointer = {
-    x: .55 * window.innerWidth,
-    y: .5 * window.innerHeight,
+const pointer={
+    x: .55*window.innerWidth,
+    y: .5*window.innerHeight,
 };
-imgInput.onchange = () => {
-    const [file] = imgInput.files;
+imgInput.onchange=()=>{
+    const [file]=imgInput.files;
     if (file) {
-        const reader = new FileReader();
-        reader.onload = e => {
+        const reader=new FileReader();
+        reader.onload =e=>{
             loadImage(e.target.result);
         };
         reader.readAsDataURL(file);
     }
 };
 let image, uniforms, effectOffControl;
-const gl = initShader();
+const gl=initShader();
 updateUniforms();
 loadImage("https://ksenia-k.com/img/codepen/for-glass-crack-demo-1.jpg");
 setupEvents();
